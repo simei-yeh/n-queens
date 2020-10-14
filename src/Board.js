@@ -150,9 +150,9 @@
     hasAnyMajorDiagonalConflicts: function() {
 
       for (var i = 0; i < this.get('n'); i++) {
-        if (this.hasMajorDiagonalConflictAt(0, i)) { return true; }
+        if (this.hasMajorDiagonalConflictAt(i - 0)) { return true; }
         if (i === 0) { continue; }
-        if (this.hasMajorDiagonalConflictAt(i, 0)) { return true; }
+        if (this.hasMajorDiagonalConflictAt(0 - i)) { return true; }
       }
 
       return false;
