@@ -135,7 +135,7 @@
     hasMajorDiagonalConflictAt: function(rowIndex, colIndex) {
       var count = 0;
       var start = colIndex - rowIndex;
-      rowIndex = start < 0 ? start * 1 : 0;
+      rowIndex = start < 0 ? start * -1 : 0;
       colIndex = start < 0 ? 0 : start;
 
       while (this._isInBounds(rowIndex, colIndex) && count < 2) {
