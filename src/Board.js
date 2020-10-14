@@ -149,7 +149,14 @@
 
     // test if any major diagonals on this board contain conflicts
     hasAnyMajorDiagonalConflicts: function() {
-      return false; // fixme
+
+      for (var i = 0; i < this.get('n'); i++) {
+        if (this.hasMajorDiagonalConflictAt(0, i)) { return true; }
+        if (i === 0) { continue; }
+        if (this.hasMajorDiagonalConflictAt(i, 0)) { return true; }
+      }
+
+      return false;
     },
 
 
