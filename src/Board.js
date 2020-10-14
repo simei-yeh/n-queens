@@ -132,9 +132,8 @@
     // --------------------------------------------------------------
     //
     // test if a specific major diagonal on this board contains a conflict
-    hasMajorDiagonalConflictAt: function(rowIndex, colIndex) {
+    hasMajorDiagonalConflictAt: function(start) {
       var count = 0;
-      var start = colIndex - rowIndex;
       rowIndex = start < 0 ? start * -1 : 0;
       colIndex = start < 0 ? 0 : start;
 
