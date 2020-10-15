@@ -148,11 +148,10 @@
 
     // test if any major diagonals on this board contain conflicts
     hasAnyMajorDiagonalConflicts: function() {
+      var size = this.get('n') - 1;
 
-      for (var i = 0; i < this.get('n'); i++) {
-        if (this.hasMajorDiagonalConflictAt(i - 0)) { return true; }
-        if (i === 0) { continue; }
-        if (this.hasMajorDiagonalConflictAt(0 - i)) { return true; }
+      for (var i = -size; i <= size; i++) {
+        if (this.hasMajorDiagonalConflictAt(i)) { return true; }
       }
 
       return false;
@@ -182,7 +181,9 @@
 
     // test if any minor diagonals on this board contain conflicts
     hasAnyMinorDiagonalConflicts: function() {
-      return false; // fixme
+
+
+      return false;
     }
 
     /*--------------------  End of Helper Functions  ---------------------*/
