@@ -50,12 +50,6 @@ window.findNQueensSolution = function(n) {
   var playNextMove = function(row, col) {
     if (isFound) { return board; }
     // toggle at row, col index
-    solution.togglePiece(row, col);
-    // if no conflicts
-    if (solution.hasAnyQueensConflicts()) {
-      solution.togglePiece(row, col);
-      return;
-    }
     //   if on last row
     if (row === solution.get('n') - 1) {
       board = solution;
@@ -69,14 +63,23 @@ window.findNQueensSolution = function(n) {
       if (isFound) { return board; }
       //       if i = current column, skip it
       if (i === col) { continue; }
+      solution.togglePiece(currentRow, i);
+      // if no conflicts
+      if (solution.hasAnyQueensConflicts()) {
+        solution.togglePiece(currentRow, i);
+        continue;
+      }
       // solution.togglePiece(currentRow, i - 1);
       playNextMove(currentRow, i);
+      if (isFound) { return board; }
+      solution.togglePiece(currentRow, i);
     }
   };
 
   for (var i = 0; i < n; i++) {
     if (isFound) { return board.rows(); }
     var solution = new Board({'n': n});
+    solution.togglePiece(0, i);
     playNextMove(0, i);
   }
 
@@ -99,5 +102,4 @@ window.countNQueensSolutions = function(n) {
 
   return solutionCount;
 };
-
 
