@@ -153,7 +153,6 @@
       for (var i = -size; i <= size; i++) {
         if (this.hasMajorDiagonalConflictAt(i)) { return true; }
       }
-
       return false;
     },
 
@@ -181,7 +180,11 @@
 
     // test if any minor diagonals on this board contain conflicts
     hasAnyMinorDiagonalConflicts: function() {
+      var size = this.get('n') - 1;
 
+      for (var i = 0; i <= size * 2; i++) {
+        if (this.hasMinorDiagonalConflictAt(i)) { return true; }
+      }
 
       return false;
     }
