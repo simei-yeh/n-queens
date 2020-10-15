@@ -39,37 +39,26 @@ window.countNRooksSolutions = function(n) {
 
 // return a matrix (an array of arrays) representing a single nxn chessboard, with n queens placed such that none of them can attack each other
 window.findNQueensSolution = function(n) {
-  // var board = new Board({'n': n});
   var board = new Board({'n': n});
   var isFound = false;
-  // declare row and col index as variables starting at 0
   var row = 0;
-  // var col = 0;
 
-  // recursive helper function:  playNextMove (col)
   var playNextMove = function(row, col) {
     if (isFound) { return board; }
-    // toggle at row, col index
-    //   if on last row
     if (row === solution.get('n') - 1) {
       board = solution;
       isFound = true;
       return board;
     }
-    //     row++
     var currentRow = row + 1;
-    //     iterate from 0 to n - 1
     for (var i = 0; i < solution.get('n'); i++) {
       if (isFound) { return board; }
-      //       if i = current column, skip it
       if (i === col) { continue; }
       solution.togglePiece(currentRow, i);
-      // if no conflicts
       if (solution.hasAnyQueensConflicts()) {
         solution.togglePiece(currentRow, i);
         continue;
       }
-      // solution.togglePiece(currentRow, i - 1);
       playNextMove(currentRow, i);
       if (isFound) { return board; }
       solution.togglePiece(currentRow, i);
@@ -91,11 +80,37 @@ window.findNQueensSolution = function(n) {
 // return the number of nxn chessboards that exist, with n queens placed such that none of them can attack each other
 window.countNQueensSolutions = function(n) {
   var solutionCount = 0;
+  var board = new Board({'n': n});
+  var row = 0;
 
-  let queens = 0;
+  if (n === 0) {
+    return 1;
+  }
 
+  var playNextMove = function(row, col) {
+    if (row === solution.get('n') - 1) {
+      board = solution;
+      solutionCount++;
+      return;
+    }
+    var currentRow = row + 1;
+    for (var i = 0; i < solution.get('n'); i++) {
+      if (i === col) { continue; }
+      solution.togglePiece(currentRow, i);
+      if (solution.hasAnyQueensConflicts()) {
+        solution.togglePiece(currentRow, i);
+        continue;
+      }
+      playNextMove(currentRow, i);
+      solution.togglePiece(currentRow, i);
+    }
+  };
 
-
+  for (var i = 0; i < n; i++) {
+    var solution = new Board({'n': n});
+    solution.togglePiece(0, i);
+    playNextMove(0, i);
+  }
 
   console.log('Number of solutions for ' + n + ' queens:', solutionCount);
 
